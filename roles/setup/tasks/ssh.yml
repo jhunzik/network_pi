@@ -1,0 +1,21 @@
+---
+- name: Copy public ssh key.
+  authorized_key:
+    user: "{{ username }}"
+    state: present
+    key: "{{ ssh_public_key }}"
+
+- name: Secure ssh.
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    validate: "sshd -T -f %s"
+  with_items:
+    - regexp: "^#PasswordAuthentication yes"
+      line: "PasswordAuthentication no"
+    - regexp: "^PermitRootLogin yes"
+      line: "PermitRootLogin no"
+    - regexp: "#Port 22"
+      line: "Port {{ ansible_port }}"
+  notify: restart_ssh_daemon

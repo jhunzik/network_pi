@@ -1,0 +1,8 @@
+---
+hostname: "{{ inventory_hostname }}"
+default_user: vagrant
+
+# The following should be overridden in host_vars/<host>/vars.yml
+username: ""
+ssh_public_key: ""
+

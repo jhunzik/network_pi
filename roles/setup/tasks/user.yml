@@ -1,0 +1,20 @@
+---
+- name: Create user.
+  user:
+    name: "{{ username }}"
+    password: "todo"
+    shell: /bin/bash
+    groups:
+      - sudo
+      - users
+    state: present
+    append: true
+
+- name: Enable passwordless sudo for sudo group.
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^%sudo"
+    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+    validate: "visudo -cf %s"
+

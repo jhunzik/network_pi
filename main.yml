@@ -1,0 +1,16 @@
+---
+- hosts: all
+  gather_facts: false
+  become: false
+
+  pre_tasks:
+    - name: Set custom ssh port.
+      import_tasks: tasks/ssh_juggle_port.yml
+
+- hosts: all
+  become: true
+
+  roles:
+    - role: setup
+    #- role: pihole
+    #- role: unifi

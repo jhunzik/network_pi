@@ -1,0 +1,21 @@
+---
+- name: Update packages.
+  apt: update_cache=yes upgrade=yes cache_valid_time=3600
+
+- name: Remove cloud-config package.
+  apt:
+    name: cloud-config
+    state: absent
+
+- name: Set hostname
+  hostname:
+    name: "{{ hostname }}"
+
+- name: Add the hostname to /etc/hosts.
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    insertafter: ^127\.0\.0\.1 *localhost
+    line: "127.0.0.1 {{ hostname }}"
+    owner: root
+    group: root
+    mode: '0644'
