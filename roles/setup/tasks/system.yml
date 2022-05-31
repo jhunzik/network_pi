@@ -12,7 +12,7 @@
     name: "{{ hostname }}"
 
 - name: Add the hostname to /etc/hosts.
-  ansible.builtin.lineinfile:
+  lineinfile:
     path: /etc/hosts
     insertafter: ^127\.0\.0\.1 *localhost
     line: "127.0.0.1 {{ hostname }}"

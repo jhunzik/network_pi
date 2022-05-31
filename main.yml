@@ -10,7 +10,13 @@
 - hosts: all
   become: true
 
+  vars:
+    pip_install_packages:
+      - name: docker
+
   roles:
-    - role: setup
+    - setup
+    - geerlingguy.pip
+    - geerlingguy.docker
     #- role: pihole
     #- role: unifi

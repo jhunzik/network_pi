@@ -1,7 +1,7 @@
 ---
 - name: Copy public ssh key.
   authorized_key:
-    user: "{{ username }}"
+    user: "{{ default_user }}"
     state: present
     key: "{{ ssh_public_key }}"
 
