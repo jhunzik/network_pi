@@ -1,7 +1,47 @@
 ---
 hostname: "{{ inventory_hostname }}"
-default_user: ansible
 
 # The following should be overridden in host_vars/<host>/vars.yml
 username: ""
 ssh_public_key: ""
+
+# geerlingguy.security
+security_ssh_port: 4642
+security_ssh_password_authentication: "no"
+security_ssh_permit_root_login: "no"
+security_ssh_usedns: "no"
+security_ssh_permit_empty_password: "no"
+security_ssh_challenge_response_auth: "no"
+security_ssh_gss_api_authentication: "no"
+security_ssh_x11_forwarding: "no"
+security_autoupdate_enabled: true
+security_autoupdate_reboot: true
+security_autoupdate_reboot_time: "04:00"
+security_autoupdate_mail_on_error: true
+security_fail2ban_custom_configuration_template: "jail.local.j2"
+
+# geerlingguy.firewall
+firewall_state: started
+firewall_enabled_at_boot: true
+firewall_flush_rules_and_chains: false
+firewall_allowed_tcp_ports:
+  - "{{ security_ssh_port }}"
+  - "80"
+  - "443"
+firewall_allowed_udp_ports: []
+firewall_log_dropped_packets: false
+firewall_disable_firewalld: true
+firewall_disable_ufw: true
+firewall_additional_rules: []
+
+# geerlingguy.docker
+docker_edition: 'ce'
+docker_package: "docker-{{ docker_edition }}"
+docker_package_state: present
+docker_service_state: started
+docker_service_enabled: true
+docker_restart_handler_state: restarted
+docker_install_compose: true
+docker_compose_version: "v2.6.0"
+docker_compose_arch: x86_64
+docker_compose_path: /usr/local/bin/docker-compose

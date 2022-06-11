@@ -1,20 +1,21 @@
 ---
-- name: Create user.
+- name: "Create user."
   user:
     name: "{{ username }}"
-    password: "todo"
     shell: /bin/bash
     groups:
       - sudo
       - users
     state: present
     append: true
+    createhome: true
 
-- name: Enable passwordless sudo for sudo group.
-  lineinfile:
-    path: /etc/sudoers
+- name: "Add public key to authorized_keys."
+  authorized_key:
+    user: "{{ item }}"
     state: present
-    regexp: "^%sudo"
-    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
-    validate: "visudo -cf %s"
+    key: "{{ ssh_public_key }}"
+  with_items:
+    - "{{ username }}"
+    - "{{ ansible_user }}"
 

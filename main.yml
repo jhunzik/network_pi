@@ -1,13 +1,5 @@
 ---
 - hosts: all
-  gather_facts: false
-  become: false
-
-  pre_tasks:
-    - name: Set custom ssh port.
-      import_tasks: tasks/ssh_juggle_port.yml
-
-- hosts: all
   become: true
 
   vars:
@@ -16,6 +8,8 @@
 
   roles:
     - setup
+    - geerlingguy.security
+    - geerlingguy.firewall
     - geerlingguy.pip
     - geerlingguy.docker
     #- role: pihole
