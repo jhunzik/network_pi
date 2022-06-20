@@ -1,13 +1,29 @@
 ---
+- name: "Create groups"
+  group:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - admins
+    - docker
+
+- name: "Add ansible user to the admin group."
+  user:
+    name: "{{ item }}"
+    groups:
+      - sudo
+      - admins
+      - docker
+    append: true
+  with_items:
+    - "{{ username }}"
+    - "{{ ansible_user }}"
+
 - name: "Create user."
   user:
     name: "{{ username }}"
     shell: /bin/bash
-    groups:
-      - sudo
-      - users
     state: present
-    append: true
     createhome: true
 
 - name: "Add public key to authorized_keys."

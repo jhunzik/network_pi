@@ -1,17 +1,17 @@
 ---
-- name: Update packages.
+- name: "Update packages."
   apt: update_cache=yes upgrade=yes cache_valid_time=3600
 
-- name: Remove cloud-config package.
+- name: "Remove cloud-config package."
   apt:
     name: cloud-config
     state: absent
 
-- name: Set hostname
+- name: "Set hostname."
   hostname:
     name: "{{ hostname }}"
 
-- name: Add the hostname to /etc/hosts.
+- name: "Add the hostname to /etc/hosts."
   lineinfile:
     path: /etc/hosts
     insertafter: ^127\.0\.0\.1 *localhost
@@ -19,3 +19,16 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: "Disable systemd-resolved DNS stub resolver."
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regex: "^#?DNSStubListener=yes"
+    line: "DNSStubListener=no"
+
+- name: "Set resolve.conf symlink."
+  file:
+    src: /run/systemd/resolve/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+  notify: restart systemd-resolved

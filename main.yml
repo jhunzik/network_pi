@@ -2,15 +2,11 @@
 - hosts: all
   become: true
 
-  vars:
-    pip_install_packages:
-      - name: docker
-
   roles:
     - setup
     - geerlingguy.security
     - geerlingguy.firewall
     - geerlingguy.pip
     - geerlingguy.docker
-    #- role: pihole
+    - pihole
     #- role: unifi

@@ -9,5 +9,5 @@ Vagrant.configure("2") do |config|
   config.vm.provider :libvirt do |libvirt|
     libvirt.driver = "kvm"
   end
-  config.vm.box = "generic/ubuntu2004"
+  config.vm.box = "generic/ubuntu2204"
 end

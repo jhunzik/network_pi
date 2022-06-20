@@ -1,0 +1,29 @@
+---
+- name: "Create pihole directory."
+  file:
+    path: "{{ pihole_dir }}"
+    state: directory
+
+- name: "Start pihole docker container."
+  docker_container:
+    name: "pihole"
+    hostname: "pi.hole"
+    image: "pihole/pihole:2022.05"
+    pull: true
+    state: "started"
+    dns_servers:
+      - "127.0.0.1"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    env:
+      "TZ": "America/Phoenix"
+      "WEBPASSWORD": "{{ pihole_password }}"
+      "SERVERIP": "127.0.0.1"
+      "VIRTUAL_HOST": "pi.hole"
+      "PROXY_LOCATION": "pi.hole"
+    volumes:
+      - "{{ pihole_dir }}/etc-pihole:/etc/pihole"
+      - "{{ pihole_dir }}/etc-dnsmasq.d:/etc/dnsmasq.d"
+    restart_policy: unless-stopped
