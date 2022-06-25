@@ -1,0 +1,23 @@
+---
+version: "3.8"
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:2022.05
+    hostname: pi.hole
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: "America/Phoenix"
+      WEBPASSWORD: "{{ pihole_password }}"
+      VIRTUAL_HOST: "pi.hole"
+      PROXY_LOCATION: "pi.hole"
+      ServerIP: "127.0.0.1"
+      PIHOLE_DNS_: 127.0.0.1#5335
+    volumes:
+      - "./etc-pihole:/etc/pihole"
+      - "./etc-dnsmasq.d:/etc/dnsmasq.d"    
+    restart: unless-stopped

@@ -18,7 +18,7 @@
     line: "127.0.0.1 {{ hostname }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: 0644
 
 - name: "Disable systemd-resolved DNS stub resolver."
   lineinfile:
