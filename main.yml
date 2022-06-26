@@ -10,4 +10,5 @@
     - geerlingguy.docker
     - unbound
     - pihole
+    - unifi
     #- role: unifi

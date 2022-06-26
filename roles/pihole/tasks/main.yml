@@ -5,9 +5,9 @@
     state: directory
 
 - name: "Copy pihole docker-compose file to server."
-  copy:
-    src: docker-compose.yml
-    dest: "{{ pihole_dir }}"
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ pihole_dir }}/docker-compose.yml"
 
 - name: "Start pihole"
   community.docker.docker_compose:

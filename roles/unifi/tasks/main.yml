@@ -1,0 +1,14 @@
+---
+- name: "Create unifi service directory."
+  file:
+    path: "{{ unifi_dir }}"
+    state: directory
+
+- name: "Copy unifi docker compose file to server."
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ unifi_dir }}/docker-compose.yml"
+
+- name: "Start unifi."
+  community.docker.docker_compose:
+    project_src: "{{ unifi_dir }}"

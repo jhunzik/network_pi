@@ -5,6 +5,10 @@ hostname: "{{ inventory_hostname }}"
 username: ""
 ssh_public_key: ""
 
+# service versions
+pihole_version: "2022.05"
+unifi_version: "amd64-7.1.66-ls154"
+
 # geerlingguy.security
 security_ssh_port: 4642
 security_ssh_password_authentication: "no"
@@ -31,6 +35,8 @@ firewall_allowed_tcp_ports:
   - "443"
 firewall_allowed_udp_ports:
   - "53"
+  - "3478"
+  - "10001"
 firewall_log_dropped_packets: false
 firewall_disable_firewalld: true
 firewall_disable_ufw: true
