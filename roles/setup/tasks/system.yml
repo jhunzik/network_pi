@@ -32,3 +32,9 @@
     dest: /etc/resolv.conf
     state: link
   notify: restart systemd-resolved
+
+- name: "Set message of the day."
+  copy:
+    src: motd
+    dest: "/etc"
+
