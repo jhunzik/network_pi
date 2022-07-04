@@ -7,8 +7,7 @@
     - geerlingguy.security
     - geerlingguy.firewall
     - geerlingguy.pip
-    - geerlingguy.docker
+    - geerlingguy.docker_arm
     - unbound
     - pihole
     - unifi
-    #- role: unifi

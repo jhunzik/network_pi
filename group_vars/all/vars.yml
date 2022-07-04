@@ -7,7 +7,7 @@ ssh_public_key: ""
 
 # service versions
 pihole_version: "2022.05"
-unifi_version: "amd64-7.1.66-ls154"
+unifi_version: "latest"
 
 # geerlingguy.security
 security_ssh_port: 4642
@@ -43,18 +43,10 @@ firewall_disable_ufw: true
 firewall_additional_rules: []
 
 # geerlingguy.docker
-docker_edition: 'ce'
-docker_package: "docker-{{ docker_edition }}"
-docker_package_state: present
-docker_service_state: started
-docker_service_enabled: true
-docker_restart_handler_state: restarted
+docker_version: latest
+docker_install_recommends: true
 docker_install_compose: true
-docker_compose_version: "v2.6.0"
-docker_compose_arch: x86_64
-docker_compose_path: /usr/local/bin/docker-compose
 
 # geerlingguy.pip
 pip_install_packages:
   - name: docker
-  - name: docker-compose
