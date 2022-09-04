@@ -29,3 +29,17 @@ This playbook also has the following roles:
 
 ## Usage
 - Install third-party roles from `requirements.txt`: `ansible-galaxy role install -r requirements.yml`
+- Create `.../host_vars/networkpi/vars.yml` with varible overrides for the empty variables in `.../group_vars/all/vars.yml` 
+- Create the `hosts` inventory file with the following
+    ```ini
+    [networkpi]
+    networkpi
+
+    [networkpi:vars]
+    ansible_host=
+    ansible_port=
+    ansible_user=
+    ansible_connection=ssh
+    ansible_private_key_file=~/.ssh/private_key
+    ```
+- Run `ansible-playbook main.yml -K`

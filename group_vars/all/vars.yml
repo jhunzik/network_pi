@@ -6,11 +6,13 @@ username: ""
 ssh_public_key: ""
 
 # service versions
-pihole_version: "2022.05"
+pihole_version: "2022.09.1"
 unifi_version: "latest"
 
 # geerlingguy.security
 security_ssh_port: 4642
+security_sshd_state: started
+security_ssh_restart_handler_state: restarted
 security_ssh_password_authentication: "no"
 security_ssh_permit_root_login: "no"
 security_ssh_usedns: "no"
@@ -22,6 +24,7 @@ security_autoupdate_enabled: true
 security_autoupdate_reboot: true
 security_autoupdate_reboot_time: "04:00"
 security_autoupdate_mail_on_error: true
+security_fail2ban_enabled: true
 security_fail2ban_custom_configuration_template: "jail.local.j2"
 
 # geerlingguy.firewall
