@@ -4,6 +4,7 @@ version: "3.8"
 services:
   pihole:
     container_name: pihole
+    restart: always
     image: pihole/pihole:{{ pihole_version }}
     hostname: pi.hole
     ports:
@@ -20,4 +21,3 @@ services:
     volumes:
       - "./etc-pihole:/etc/pihole"
       - "./etc-dnsmasq.d:/etc/dnsmasq.d"    
-    restart: unless-stopped

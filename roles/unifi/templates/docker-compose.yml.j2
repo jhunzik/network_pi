@@ -3,6 +3,7 @@ version: "3.8"
 services:
   unifi-controller:
     image: "lscr.io/linuxserver/unifi-controller:{{ unifi_version }}"
+    restart: always
     container_name: unifi-controller
     environment:
       - PUID=1000
@@ -14,4 +15,3 @@ services:
       - 3478:3478/udp
       - 10001:10001/udp
       - 8080:8080
-    restart: unless-stopped
