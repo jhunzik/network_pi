@@ -1,0 +1,47 @@
+---
+- name: Update packages
+  apt:
+    update_cache: true
+    upgrade: true
+    autoremove: true
+    cache_valid_time: 3600
+
+- name: Remove cloud-config package.
+  apt:
+    name: cloud-config
+    state: absent
+
+- name: Check if reboot required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+- name: Reboot if required
+  reboot:
+    msg: Rebooting due to a kernel update
+  when: reboot_required_file.stat.exists
+
+- name: Install extra packages
+  package:
+    name: "{{ extra_packages }}"
+    state: present
+
+- name: Set the hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Replace the hostname entry with our own
+  lineinfile:
+    path: /etc/hosts
+    insertafter: ^127\.0\.0\.1 *localhost
+    line: "127.0.0.1 {{ inventory_hostname }}"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Disable cron e-mail notifications
+  cron:
+    name: MAILTO
+    user: root
+    env: true
+    job: ""
