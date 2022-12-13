@@ -6,7 +6,8 @@ services:
     container_name: pihole
     restart: always
     image: pihole/pihole:{{ pihole_version }}
-    hostname: pi.hole
+    privileged: false
+    hostname: pihole
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -14,8 +15,8 @@ services:
     environment:
       TZ: "America/Phoenix"
       WEBPASSWORD: "{{ pihole_password }}"
-      VIRTUAL_HOST: "pi.hole"
-      PROXY_LOCATION: "pi.hole"
+      VIRTUAL_HOST: "pihole"
+      PROXY_LOCATION: "pihole"
       ServerIP: "127.0.0.1"
       PIHOLE_DNS_: 127.0.0.1#5335
     volumes:

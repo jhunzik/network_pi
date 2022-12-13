@@ -1,13 +1,22 @@
 ---
 - hosts: all
   become: true
+  gather_facts: false
+
+  pre_tasks:
+  - name: Port juggle
+    import_tasks: tasks/port_juggle.yml
+  
+  - name: Gather facts
+    setup:
+
+  - name: System setup
+    import_tasks: tasks/system.yml
 
   roles:
-    - setup
-    - geerlingguy.security
-    - geerlingguy.firewall
-    - geerlingguy.pip
-    - geerlingguy.docker_arm
-    - unbound
-    - pihole
-    - unifi
+    - role: geerlingguy.security
+    - role: geerlingguy.firewall
+    - role: geerlingguy.pip
+    - role: geerlingguy.docker_arm
+    - role: setup
+      tags: setup

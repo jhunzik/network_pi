@@ -1,12 +1,15 @@
 ---
-hostname: "{{ inventory_hostname }}"
+extra_packages:
+  - htop
 
 # The following should be overridden in host_vars/<host>/vars.yml
 username: ""
 ssh_public_key: ""
+pihole_password: ""
 
 # service versions
-pihole_version: "2022.09.1"
+pihole_version: "latest"
+unbound_version: "latest"
 unifi_version: "latest"
 
 # geerlingguy.security
@@ -22,8 +25,7 @@ security_ssh_gss_api_authentication: "no"
 security_ssh_x11_forwarding: "no"
 security_autoupdate_enabled: true
 security_autoupdate_reboot: true
-security_autoupdate_reboot_time: "04:00"
-security_autoupdate_mail_on_error: true
+security_autoupdate_reboot_time: "07:00"
 security_fail2ban_enabled: true
 security_fail2ban_custom_configuration_template: "jail.local.j2"
 

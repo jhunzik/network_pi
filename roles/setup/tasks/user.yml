@@ -1,23 +1,19 @@
 ---
-- name: "Create groups"
-  group:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - admins
-    - docker
-
-- name: "Add user to the admin group."
+- name: "Add user to the docker group"
   user:
-    name: "{{ username }}"
+    name: "{{ ansible_user }}"
     groups:
-      - sudo
-      - admins
       - docker
     append: true
+  
+- name: Set message of the day.
+  copy:
+    src: motd
+    dest: "/etc"
+    mode: 0644
 
 - name: "Add public key to authorized_keys."
   authorized_key:
-    user: "{{ username }}"
+    user: "{{ ansible_user }}"
     state: present
     key: "{{ ssh_public_key }}"

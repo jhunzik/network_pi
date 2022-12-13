@@ -12,7 +12,7 @@ It uses the following [geerlingguy](https://galaxy.ansible.com/geerlingguy) Ansi
 | ---- | ----------- |
 | geerlingguy.security | Some sane security defaults |
 | geerlingguy.firewall | A basic firewall |
-| geerlingguy | The python package manager (used to install docker) |
+| geerlingguy.pip | The python package manager (used to install docker) |
 | geerlingguy.docker | Setups up Docker |
 
 This playbook also has the following roles:
@@ -20,7 +20,7 @@ This playbook also has the following roles:
 | Role | Description |
 | ---- | ----------- |
 | pihole | A blackhole DNS (docker container) |
-| unbound | A recursive DNS (used by pihole) |
+| unbound | A recursive DNS (docker container) |
 | unifi controller | A network controller (docker container) |
 
 ## Configuration
@@ -33,7 +33,7 @@ This playbook also has the following roles:
 - Create the `hosts` inventory file with the following
     ```ini
     [networkpi]
-    networkpi
+    <ip> 
 
     [networkpi:vars]
     ansible_host=
