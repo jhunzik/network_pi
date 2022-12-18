@@ -45,3 +45,7 @@
     user: root
     env: true
     job: ""
+
+- name: Set time
+  timezone:
+    name: "America/Phoenix"

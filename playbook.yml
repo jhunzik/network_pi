@@ -9,14 +9,18 @@
   
   - name: Gather facts
     setup:
+    tags: setup
 
   - name: System setup
     import_tasks: tasks/system.yml
+    tags: system
 
   roles:
     - role: geerlingguy.security
     - role: geerlingguy.firewall
     - role: geerlingguy.pip
     - role: geerlingguy.docker_arm
-    - role: setup
+
+  tasks:
+    - import_tasks: tasks/user.yml
       tags: setup

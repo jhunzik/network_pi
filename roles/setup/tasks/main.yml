@@ -1,3 +1,0 @@
----
-- name: User tasks
-  include_tasks: user.yml

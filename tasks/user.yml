@@ -1,7 +1,7 @@
 ---
 - name: "Add user to the docker group"
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ username }}"
     groups:
       - docker
     append: true
@@ -11,9 +11,3 @@
     src: motd
     dest: "/etc"
     mode: 0644
-
-- name: "Add public key to authorized_keys."
-  authorized_key:
-    user: "{{ ansible_user }}"
-    state: present
-    key: "{{ ssh_public_key }}"
