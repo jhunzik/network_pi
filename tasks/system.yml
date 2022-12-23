@@ -49,3 +49,24 @@
 - name: Set time
   timezone:
     name: "America/Phoenix"
+
+- name: Disable stub resolver
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regex: '^#DNSStubListener=yes'
+    line: 'DNSStubListener=no'
+  register: stub
+
+- name: Create new resolv.conf symlink
+  file:
+  src: /etc/resolv.conf
+  dest: /run/systemd/resolve/resolv.conf
+  state: link
+  register: new_link
+
+- name: Restart systemd-resolved
+  service:
+    name: systemd-resolved
+    state: restarted
+  when: stub.changed and new_link.changed
+

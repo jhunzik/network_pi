@@ -1,6 +1,7 @@
 ---
 extra_packages:
   - htop
+  - dnsutils
 
 # The following should be overridden in host_vars/<host>/vars.yml
 username: ""
@@ -9,7 +10,10 @@ pihole_password: ""
 # service versions
 pihole_version: "latest"
 unbound_version: "latest"
-unifi_version: "latest"
+
+# service directories
+pihole_dir: "/srv/pihole"
+unbound_dir: "/srv/unbound"
 
 # geerlingguy.security
 security_ssh_port: 4642

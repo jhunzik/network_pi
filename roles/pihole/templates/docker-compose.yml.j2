@@ -6,19 +6,24 @@ services:
     container_name: pihole
     restart: always
     image: pihole/pihole:{{ pihole_version }}
-    privileged: false
     hostname: pihole
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80/tcp"
+      - 53/tcp
+      - 53/udp
+      - 80/tcp
     environment:
       TZ: "America/Phoenix"
       WEBPASSWORD: "{{ pihole_password }}"
-      VIRTUAL_HOST: "pihole"
-      PROXY_LOCATION: "pihole"
-      ServerIP: "127.0.0.1"
-      PIHOLE_DNS_: 127.0.0.1#5335
+      FTLCONF_LOCAL_IPV4: "{{ ansible_ssh_host }}"
+      PIHOLE_DNS_: "unbound#5335"
+      DNSMASQ_LISTENING: "all"
     volumes:
       - "./etc-pihole:/etc/pihole"
       - "./etc-dnsmasq.d:/etc/dnsmasq.d"    
+    networks:
+      dns:
+
+networks:
+  dns:
+    name: dns_network
+    external: true

@@ -1,0 +1,19 @@
+---
+- name: "Create unbound directory."
+  file:
+    path: "{{ unbound_dir }}"
+    state: directory
+
+- name: "Copy unbound docker-compose file to server."
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ unbound_dir }}/docker-compose.yml"
+
+- name: "Create docker dns network"
+  community.docker.docker_network:
+    name: dns_network
+
+- name: "Start unbound"
+  community.docker.docker_compose:
+    project_src: "{{ unbound_dir }}"
+    pull: true

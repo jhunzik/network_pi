@@ -20,6 +20,14 @@
     - role: geerlingguy.firewall
     - role: geerlingguy.pip
     - role: geerlingguy.docker_arm
+    - role: unbound
+      tags:
+        - setup
+        - unbound
+    - role: pihole
+      tags:
+        - setup
+        - pihole
 
   tasks:
     - import_tasks: tasks/user.yml

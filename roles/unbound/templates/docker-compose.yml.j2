@@ -1,0 +1,16 @@
+---
+version: "3.8"
+services:
+  unbound:
+    container_name: unbound
+    restart: unless-stopped
+    image: mvance/unbound-rpi:{{ unbound_version }}
+    ports:
+      - 5335:53/tcp
+      - 5335:53/udp
+    networks:
+      dns:
+networks:
+  dns:
+    name: dns_network
+    external: true

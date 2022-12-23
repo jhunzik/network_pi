@@ -12,3 +12,4 @@
 - name: "Start pihole"
   community.docker.docker_compose:
     project_src: "{{ pihole_dir }}"
+    pull: true
